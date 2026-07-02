@@ -69,27 +69,16 @@
 		"MIC BIAS2", "Analog Mic2",
 		"AMIC3", "MIC BIAS3",
 		"MIC BIAS3", "Analog Mic3",
-		"AMIC4", "MIC BIAS3",
-		"MIC BIAS3", "Analog Mic4",
 		"IN1_HPHL", "HPHL_OUT",
 		"IN2_HPHR", "HPHR_OUT",
 		"IN3_AUX", "AUX_OUT",
-		"SpkrMono WSA_IN", "AUX",
 		"TX SWR_MIC0", "ADC1_OUTPUT",
 		"TX SWR_MIC4", "ADC2_OUTPUT",
-		"TX SWR_MIC5", "ADC3_OUTPUT",
 		"TX SWR_MIC0", "VA_TX_SWR_CLK",
 		"TX SWR_MIC1", "VA_TX_SWR_CLK",
 		"TX SWR_MIC2", "VA_TX_SWR_CLK",
 		"TX SWR_MIC3", "VA_TX_SWR_CLK",
 		"TX SWR_MIC4", "VA_TX_SWR_CLK",
-		"TX SWR_MIC5", "VA_TX_SWR_CLK",
-		"TX SWR_MIC6", "VA_TX_SWR_CLK",
-		"TX SWR_MIC7", "VA_TX_SWR_CLK",
-		"TX SWR_MIC8", "VA_TX_SWR_CLK",
-		"TX SWR_MIC9", "VA_TX_SWR_CLK",
-		"TX SWR_MIC10", "VA_TX_SWR_CLK",
-		"TX SWR_MIC11", "VA_TX_SWR_CLK",
 		"RX_TX DEC0_INP", "TX DEC0 MUX",
 		"RX_TX DEC1_INP", "TX DEC1 MUX",
 		"RX_TX DEC2_INP", "TX DEC2 MUX",
@@ -98,8 +87,7 @@
 		"TX_AIF2 CAP", "VA_TX_SWR_CLK",
 		"TX_AIF3 CAP", "VA_TX_SWR_CLK",
 		"VA SWR_MIC0", "ADC1_OUTPUT",
-		"VA SWR_MIC4", "ADC2_OUTPUT",
-		"VA SWR_MIC5", "ADC3_OUTPUT";
+		"VA SWR_MIC4", "ADC2_OUTPUT";
 	qcom,msm-mbhc-hphl-swh = <1>;
 	qcom,msm-mbhc-gnd-swh = <1>;
 	asoc-codec  = <&stub_codec>, <&bolero>;

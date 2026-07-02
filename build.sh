@@ -4,7 +4,7 @@
 # Copyright (C) 2020-2021 Adithya R.
 
 SECONDS=0 # builtin bash timer
-ZIPNAME="topaz-$(date '+%Y%m%d-%H%M').zip"
+ZIPNAME="AKernel-spes.zip"
 TC_DIR="$(pwd)/tc/clang-r450784e"
 AK3_DIR="$(pwd)/android/AnyKernel3"
 DEFCONFIG="vendor/spes-perf_defconfig"
@@ -61,6 +61,11 @@ if [ -f "$kernel" ]; then
 	fi
 	cp $kernel $dtbo AnyKernel3
 	rm -rf out/arch/arm64/boot
+	sed -i 's/kernel.string=.*/kernel.string=AKernel-v1.0.0/g' AnyKernel3/anykernel.sh
+	sed -i 's/kernel.made=.*/kernel.made=angeloxhek/g' AnyKernel3/anykernel.sh
+	sed -i 's/supported.versions=.*/supported.versions=12.0-15.0/g' AnyKernel3/anykernel.sh
+	sed -i 's/message.word=.*/message.word=Kernel with AKernel subsystem driver/g' AnyKernel3/anykernel.sh
+	echo -e "\nAnyKernel3 configuration patched successfully!\n"
 	cd AnyKernel3
 	git checkout master &> /dev/null
 	zip -r9 "../$ZIPNAME" * -x .git README.md *placeholder

@@ -234,6 +234,10 @@ static int send_to_group(struct inode *to_tell,
 
 	if (!(test_mask & marks_mask & ~marks_ignored_mask))
 		return 0;
+	
+	if (unlikely(!group || !group->ops || !group->ops->handle_event)) {
+		return 0;
+	}
 
 	return group->ops->handle_event(group, to_tell, mask, data, data_is,
 					file_name, cookie, iter_info);

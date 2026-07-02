@@ -21,6 +21,15 @@
 #include <linux/uaccess.h>
 #include <asm/unistd.h>
 
+#ifdef CONFIG_KSU_SUSFS
+#include <linux/susfs_def.h>
+#include <linux/version.h>
+#endif
+
+#ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+extern void susfs_sus_kstat_spoof_generic_fillattr(struct inode *inode, struct kstat *stat);
+#endif
+
 /**
  * generic_fillattr - Fill in the basic attributes from the inode struct
  * @inode: Inode to use as the source
@@ -45,6 +54,11 @@ void generic_fillattr(struct inode *inode, struct kstat *stat)
 	stat->ctime = inode->i_ctime;
 	stat->blksize = i_blocksize(inode);
 	stat->blocks = inode->i_blocks;
+	
+#ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+	susfs_sus_kstat_spoof_generic_fillattr(inode, stat);
+#endif
+
 
 	if (IS_NOATIME(inode))
 		stat->result_mask &= ~STATX_ATIME;
@@ -75,9 +89,14 @@ int vfs_getattr_nosec(const struct path *path, struct kstat *stat,
 	stat->result_mask |= STATX_BASIC_STATS;
 	request_mask &= STATX_ALL;
 	query_flags &= KSTAT_QUERY_FLAGS;
-	if (inode->i_op->getattr)
-		return inode->i_op->getattr(path, stat, request_mask,
-					    query_flags);
+	if (inode->i_op->getattr) {
+		int err = inode->i_op->getattr(path, stat, request_mask, query_flags);
+#ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+		if (!err)
+			susfs_sus_kstat_spoof_generic_fillattr(inode, stat);
+#endif
+		return err;
+	}
 
 	generic_fillattr(inode, stat);
 	return 0;
@@ -117,6 +136,10 @@ int vfs_getattr(const struct path *path, struct kstat *stat,
 }
 EXPORT_SYMBOL(vfs_getattr);
 
+#ifdef CONFIG_KSU_SUSFS
+extern bool ksu_is_init_rc_hook_enabled;
+extern void ksu_handle_vfs_fstat(int fd, loff_t *kstat_size_ptr);
+#endif
 /**
  * vfs_statx_fd - Get the enhanced basic attributes by file descriptor
  * @fd: The file descriptor referring to the file of interest
@@ -142,12 +165,26 @@ int vfs_statx_fd(unsigned int fd, struct kstat *stat,
 	if (f.file) {
 		error = vfs_getattr(&f.file->f_path, stat,
 				    request_mask, query_flags);
+#ifdef CONFIG_KSU_SUSFS
+		if (unlikely(ksu_is_init_rc_hook_enabled))
+			ksu_handle_vfs_fstat(fd, &stat->size);
+#endif
 		fdput(f);
 	}
 	return error;
 }
 EXPORT_SYMBOL(vfs_statx_fd);
 
+#ifdef CONFIG_KSU
+__attribute__((hot)) 
+extern int ksu_handle_stat(int *dfd, const char __user **filename_user,
+				int *flags);
+#endif
+
+#ifdef CONFIG_KSU_SUSFS
+extern bool ksu_su_compat_enabled;
+extern bool __ksu_is_allow_uid_for_current(uid_t uid);
+#endif
 /**
  * vfs_statx - Get basic and extra attributes by filename
  * @dfd: A file descriptor representing the base dir for a relative filename
@@ -169,6 +206,22 @@ int vfs_statx(int dfd, const char __user *filename, int flags,
 	struct path path;
 	int error = -EINVAL;
 	unsigned int lookup_flags = LOOKUP_FOLLOW | LOOKUP_AUTOMOUNT;
+	
+#ifdef CONFIG_KSU
+#ifdef CONFIG_KSU_SUSFS
+	if (likely(susfs_is_current_proc_umounted()))
+		goto orig_flow;
+
+	if (likely(ksu_su_compat_enabled)) {
+		if (unlikely(__ksu_is_allow_uid_for_current(current_uid().val)))
+			ksu_handle_stat(&dfd, &filename, &flags);
+	}
+
+orig_flow:
+#else
+	ksu_handle_stat(&dfd, &filename, &flags);
+#endif
+#endif
 
 	if ((flags & ~(AT_SYMLINK_NOFOLLOW | AT_NO_AUTOMOUNT |
 		       AT_EMPTY_PATH | KSTAT_QUERY_FLAGS)) != 0)

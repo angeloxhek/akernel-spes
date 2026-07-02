@@ -1,0 +1,6 @@
+[submodule "drivers/akernel"]
+	path = drivers/akernel
+	url = https://github.com/angeloxhek/AKernel.git
+[submodule "drivers/net/wireless/realtek/rtl8821cu"]
+	path = drivers/net/wireless/realtek/rtl8821cu
+	url = https://github.com/brektrou/rtl8821CU.git

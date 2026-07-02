@@ -44,6 +44,12 @@
 #define avc_cache_stats_incr(field)	do {} while (0)
 #endif
 
+#ifdef CONFIG_KSU_SUSFS
+extern u32 susfs_ksu_sid;
+extern u32 susfs_priv_app_sid;
+extern struct static_key_false susfs_is_avc_log_spoofing_enabled;
+#endif
+
 struct avc_entry {
 	u32			ssid;
 	u32			tsid;
@@ -742,20 +748,31 @@ static void avc_audit_pre_callback(struct audit_buffer *ab, void *a)
 	audit_log_format(ab, " for ");
 }
 
-/**
- * avc_audit_post_callback - SELinux specific information
- * will be called by generic audit code
- * @ab: the audit buffer
- * @a: audit_data
- */
 static void avc_audit_post_callback(struct audit_buffer *ab, void *a)
 {
 	struct common_audit_data *ad = a;
+	u32 ssid, tsid;
+
 	audit_log_format(ab, " ");
+
+	ssid = ad->selinux_audit_data->ssid;
+	tsid = ad->selinux_audit_data->tsid;
+
+#ifdef CONFIG_KSU_SUSFS
+	if (static_branch_unlikely(&susfs_is_avc_log_spoofing_enabled)) {
+		if (unlikely(tsid == susfs_ksu_sid))
+			tsid = susfs_priv_app_sid;
+		
+		if (unlikely(ssid == susfs_ksu_sid))
+			ssid = susfs_priv_app_sid;
+	}
+#endif
+
 	avc_dump_query(ab, ad->selinux_audit_data->state,
-		       ad->selinux_audit_data->ssid,
-		       ad->selinux_audit_data->tsid,
+		       ssid,
+		       tsid,
 		       ad->selinux_audit_data->tclass);
+
 	if (ad->selinux_audit_data->denied) {
 		audit_log_format(ab, " permissive=%u",
 				 ad->selinux_audit_data->result ? 0 : 1);
