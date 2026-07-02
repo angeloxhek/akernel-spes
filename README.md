@@ -25,6 +25,7 @@ I maintain different branches of this kernel to suit different needs. Choose you
 | **KernelSU-Next** | ✅ Yes | ❌ No | ⏳ TBD |
 | **SusFS v2.1.0** (Hide Root) | ✅ Yes | ❌ No | ⏳ TBD |
 | **AKernel Driver** (Ring 0) | ✅ Yes | ❌ No | ⏳ TBD |
+| **rtl8821CU** | ✅ Yes | ❌ No | ⏳ TBD |
 | **NetHunter / SDR Ready** | ✅ Yes | ❌ No | ⏳ TBD |
 | **TCP BBR** (Fast Network) | ✅ Yes | ✅ Yes | ⏳ TBD |
 | **TTL Bypass** (Tethering) | ✅ Yes | ✅ Yes | ⏳ TBD |
