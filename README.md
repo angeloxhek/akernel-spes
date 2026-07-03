@@ -22,10 +22,10 @@ I maintain different branches of this kernel to suit different needs. Choose you
 
 | Feature | [akernel](../../tree/akernel-12-15) | [clean](../../tree/clean-12-15) | [root](../../tree/root-12-15) |
 | :--- | :---: | :---: | :---: |
-| **KernelSU-Next** | ✅ Yes | ❌ No | ✅ Yes |
-| **SusFS v2.1.0** (Hide Root) | ✅ Yes | ❌ No | ✅ Yes |
-| **AKernel Driver** (Ring 0) | ✅ Yes | ❌ No | ❌ No |
-| **rtl8821CU** | ✅ Yes | ❌ No | ❌ No |
+| **[KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next)** | ✅ Yes | ❌ No | ✅ Yes |
+| **[SusFS v2.1.0](https://gitlab.com/simonpunk/susfs4ksu)** | ✅ Yes | ❌ No | ✅ Yes |
+| **[AKernel Driver](../../../AKernel)** (Ring 0) | ✅ Yes | ❌ No | ❌ No |
+| **[rtl8821CU](https://github.com/brektrou/rtl8821CU)** | ✅ Yes | ❌ No | ❌ No |
 | **NetHunter / SDR Ready** | ✅ Yes | ❌ No | ❌ No |
 | **TCP BBR** (Fast Network) | ✅ Yes | ✅ Yes | ✅ Yes |
 | **TTL Bypass** (Tethering) | ✅ Yes | ✅ Yes | ✅ Yes |
@@ -75,10 +75,10 @@ Deeply modified to bypass the strictest checks (Play Integrity, Vanguard, Bankin
 
 | Функционал | [akernel](../../tree/akernel-12-15) | [clean](../../tree/clean-12-15) | [root](../../tree/root-12-15) |
 | :--- | :---: | :---: | :---: |
-| **KernelSU-Next** | ✅ Есть | ❌ Нет | ✅ Есть |
-| **SusFS v2.1.0** (Скрытие рута) | ✅ Есть | ❌ Нет | ✅ Есть |
-| **AKernel Driver** (Ring 0) | ✅ Есть | ❌ Нет | ❌ Нет |
-| **rtl8821CU** | ✅ Есть | ❌ Нет | ❌ Нет |
+| **[KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next)** | ✅ Есть | ❌ Нет | ✅ Есть |
+| **[SusFS v2.1.0](https://gitlab.com/simonpunk/susfs4ksu)** | ✅ Есть | ❌ Нет | ✅ Есть |
+| **[AKernel Driver](../../../AKernel)** | ✅ Есть | ❌ Нет | ❌ Нет |
+| **[rtl8821CU](https://github.com/brektrou/rtl8821CU)** | ✅ Есть | ❌ Нет | ❌ Нет |
 | **NetHunter / SDR Ready** | ✅ Есть | ❌ Нет | ❌ Нет |
 | **TCP BBR** (Быстрая сеть) | ✅ Есть | ✅ Есть | ✅ Есть |
 | **Обход TTL** (Раздача инета) | ✅ Есть | ✅ Есть | ✅ Есть |
