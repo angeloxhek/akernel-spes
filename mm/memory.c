@@ -85,6 +85,11 @@
 #define CREATE_TRACE_POINTS
 #include <trace/events/pagefault.h>
 
+#ifdef CONFIG_KSU_SUSFS_SUS_MAP
+#include <linux/susfs_def.h>
+#include <linux/fs.h>
+#endif // #ifdef CONFIG_KSU_SUSFS_SUS_MAP
+
 #if defined(LAST_CPUPID_NOT_IN_PAGE_FLAGS) && !defined(CONFIG_COMPILE_TEST)
 #warning Unfortunate NUMA and NUMA Balancing config, growing page-frame for last_cpupid.
 #endif
@@ -5135,6 +5140,15 @@ int __access_remote_vm(struct task_struct *tsk, struct mm_struct *mm,
 		int bytes, ret, offset;
 		void *maddr;
 		struct page *page = NULL;
+		
+#ifdef CONFIG_KSU_SUSFS_SUS_MAP
+		vma = find_vma(mm, addr);
+		if (vma && vma->vm_file) {
+			struct inode *vma_inode = file_inode(vma->vm_file);
+			if (vma_inode && SUSFS_IS_INODE_SUS_MAP(vma_inode))
+				break;
+		}
+#endif
 
 		ret = get_user_pages_remote(tsk, mm, addr, 1,
 				gup_flags, &page, &vma, NULL);

@@ -65,6 +65,13 @@ struct fscrypt_operations;
 struct fsverity_info;
 struct fsverity_operations;
 
+#ifndef MNT_IDMAP_DUMMY
+#define MNT_IDMAP_DUMMY
+struct mnt_idmap {
+    int dummy;
+};
+#endif
+
 extern void __init inode_init(void);
 extern void __init inode_init_early(void);
 extern void __init files_init(void);
