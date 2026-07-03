@@ -20,16 +20,16 @@ Built for performance, penetration testing, and ultimate root hiding. Successful
 ### Branches & Versions
 I maintain different branches of this kernel to suit different needs. Choose your version:
 
-| Feature | [main (Ultimate)](../../tree/main) | [clean (Basic)](../../tree/clean) | *3rd Branch (Planned)* |
+| Feature | [akernel](../../tree/akernel-12-15) | [clean](../../tree/clean-12-15) | [root](../../tree/root-12-15) |
 | :--- | :---: | :---: | :---: |
-| **KernelSU-Next** | ✅ Yes | ❌ No | ⏳ TBD |
-| **SusFS v2.1.0** (Hide Root) | ✅ Yes | ❌ No | ⏳ TBD |
-| **AKernel Driver** (Ring 0) | ✅ Yes | ❌ No | ⏳ TBD |
-| **rtl8821CU** | ✅ Yes | ❌ No | ⏳ TBD |
-| **NetHunter / SDR Ready** | ✅ Yes | ❌ No | ⏳ TBD |
-| **TCP BBR** (Fast Network) | ✅ Yes | ✅ Yes | ⏳ TBD |
-| **TTL Bypass** (Tethering) | ✅ Yes | ✅ Yes | ⏳ TBD |
-| **Deep Debloat & Opts** | ✅ Yes | ✅ Yes | ⏳ TBD |
+| **KernelSU-Next** | ✅ Yes | ❌ No | ✅ Yes |
+| **SusFS v2.1.0** (Hide Root) | ✅ Yes | ❌ No | ✅ Yes |
+| **AKernel Driver** (Ring 0) | ✅ Yes | ❌ No | ❌ No |
+| **rtl8821CU** | ✅ Yes | ❌ No | ❌ No |
+| **NetHunter / SDR Ready** | ✅ Yes | ❌ No | ❌ No |
+| **TCP BBR** (Fast Network) | ✅ Yes | ✅ Yes | ✅ Yes |
+| **TTL Bypass** (Tethering) | ✅ Yes | ✅ Yes | ✅ Yes |
+| **Deep Debloat & Opts** | ✅ Yes | ✅ Yes | ✅ Yes |
 
 ---
 
