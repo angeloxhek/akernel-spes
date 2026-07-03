@@ -1,3 +1,4 @@
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 /* Sign a module file using the given key.
  *
  * Copyright © 2014-2016 Red Hat, Inc. All Rights Reserved.
