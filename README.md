@@ -34,7 +34,7 @@ I maintain different branches of this kernel to suit different needs. Choose you
 ---
 
 ### 1. Core Feature: AKernel Subsystem
-* **Custom Ring 0 Bridge:** Integrated custom `drivers/akernel` to allow direct interaction with the kernel (Ring 0) from user space (Ring 3) bypassing standard Android APIs. *(Currently in early development).*
+* **Custom Ring 0 Bridge:** Integrated custom `drivers/akernel` to allow direct interaction with the kernel (Ring 0) from user space (Ring 3) bypassing standard Android APIs. **[Check AKernel](../../../AKernel)**
 * **Isolated Development:** Connected as an independent Git submodule.
 * **Stealth Mode:** Protected by the `CONFIG_AKERNEL_HIDE=y` flag to evade anti-cheat memory scanners.
 
@@ -87,7 +87,7 @@ Deeply modified to bypass the strictest checks (Play Integrity, Vanguard, Bankin
 ---
 
 ### 1. Главная особенность: Подсистема AKernel
-* **Собственный драйвер ядра:** Интегрирован кастомный драйвер `drivers/akernel` для прямого взаимодействия с Ring 0. *(Ранняя стадия разработки).*
+* **Собственный драйвер ядра:** Интегрирован кастомный драйвер `drivers/akernel` для прямого взаимодействия с Ring 0. **[Смотри AKernel](../../../AKernel)**
 * **Изолированная разработка:** Подключен как независимый Git-сабмодуль.
 * **Режим невидимости:** Защищен флагом `CONFIG_AKERNEL_HIDE=y` для защиты от античитов.
 
