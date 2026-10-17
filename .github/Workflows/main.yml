@@ -1,0 +1,51 @@
+name: Build Main
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bc bison build-essential flex git libssl-dev libelf-dev libncurses-dev zip unzip python3 perl wget
+
+      - name: Build kernel
+        run: |
+          set -o pipefail
+          bash build.sh 2>&1 | tee build-output.txt
+
+      - name: Upload build files
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Main
+          path: |
+            Main*.zip
+            build-output.txt
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload logs if build fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kernel-build-log
+          path: build-output.txt
+          if-no-files-found: ignore
